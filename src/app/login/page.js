@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   // Data login langsung di file
   const dummyUsers = [
     { email: "admin@gmail.com", password: "12345" },
-    { email: "user@example.com", password: "userpass" }
+    { email: "user@example.com", password: "userpass" },
   ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
 
     setTimeout(() => {
       const found = dummyUsers.find(
@@ -27,9 +27,9 @@ export default function Login() {
       );
 
       if (found) {
-        router.push('/dashboard');
+        router.push("/dashboard");
       } else {
-        setError('Email atau password salah!');
+        setError("Email atau password salah!");
         setLoading(false);
       }
     }, 1000);
@@ -72,7 +72,7 @@ export default function Login() {
           disabled={loading}
           className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800"
         >
-          {loading ? 'Loading...' : 'Sign In'}
+          {loading ? "Loading..." : "Sign In"}
         </button>
       </form>
     </div>
