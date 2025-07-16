@@ -10,7 +10,6 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Data login langsung di file
   const dummyUsers = [
     { email: "admin@gmail.com", password: "12345" },
     { email: "user@example.com", password: "userpass" },

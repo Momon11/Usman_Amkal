@@ -10,6 +10,7 @@ import {
   IconLayoutDashboard,
   IconEdit,
   IconNews,
+  IconUsersGroup,
 } from "@tabler/icons-react";
 import { supabase } from "@/lib/supabaseClient";
 
@@ -49,7 +50,6 @@ export default function UserPage() {
 
   return (
     <div className="flex min-h-screen">
-      {/* Sidebar */}
       <div className="bg-white w-[250px] flex flex-col items-center gap-8 p-5">
         <h1 className="text-3xl text-black font-bold">Connect</h1>
         <div className="flex flex-col gap-3">
@@ -77,8 +77,17 @@ export default function UserPage() {
           >
             <IconKey /> Hak Akses
           </button>
-                    <button onClick={() => router.push('/news')} className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center">
+          <button
+            onClick={() => router.push("/news")}
+            className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center"
+          >
             <IconNews /> News
+          </button>
+          <button
+            onClick={() => router.push("/team")}
+            className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center"
+          >
+            <IconUsersGroup /> Tim
           </button>
           <button
             onClick={() => router.push("/login")}
@@ -88,8 +97,6 @@ export default function UserPage() {
           </button>
         </div>
       </div>
-
-      {/* Content */}
       <div className="bg-white w-full p-5 relative">
         <Input
           placeholder="Cari user"
@@ -135,7 +142,6 @@ export default function UserPage() {
           )}
         </div>
 
-        {/* Tombol Tambah */}
         <button
           onClick={handleAdd}
           className="fixed bottom-5 right-5 bg-gray-200 hover:bg-gray-300 text-xl rounded-md w-10 h-10"

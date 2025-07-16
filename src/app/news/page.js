@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { supabase } from '@/lib/supabaseClient';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   IconLayoutDashboard,
   IconUser,
@@ -14,11 +14,12 @@ import {
   IconEdit,
   IconTrash,
   IconNews,
-} from '@tabler/icons-react';
+  IconUsersGroup,
+} from "@tabler/icons-react";
 
 export default function NewsPage() {
   const [news, setNews] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -27,34 +28,34 @@ export default function NewsPage() {
 
   const fetchNews = async () => {
     const { data, error } = await supabase
-      .from('news')
-      .select('*')
-      .order('created_at', { ascending: false });
+      .from("news")
+      .select("*")
+      .order("created_at", { ascending: false });
 
     if (!error) setNews(data);
   };
 
   const handleAdd = async () => {
-    const title = prompt('Judul Berita:');
-    const content = prompt('Isi Berita:');
+    const title = prompt("Judul Berita:");
+    const content = prompt("Isi Berita:");
     if (title && content) {
-      await supabase.from('news').insert([{ title, content }]);
+      await supabase.from("news").insert([{ title, content }]);
       fetchNews();
     }
   };
 
   const handleEdit = async (id, oldTitle, oldContent) => {
-    const title = prompt('Edit Judul:', oldTitle);
-    const content = prompt('Edit Konten:', oldContent);
+    const title = prompt("Edit Judul:", oldTitle);
+    const content = prompt("Edit Konten:", oldContent);
     if (title && content) {
-      await supabase.from('news').update({ title, content }).eq('id', id);
+      await supabase.from("news").update({ title, content }).eq("id", id);
       fetchNews();
     }
   };
 
   const handleDelete = async (id) => {
-    if (confirm('Yakin hapus berita ini?')) {
-      await supabase.from('news').delete().eq('id', id);
+    if (confirm("Yakin hapus berita ini?")) {
+      await supabase.from("news").delete().eq("id", id);
       fetchNews();
     }
   };
@@ -65,32 +66,54 @@ export default function NewsPage() {
 
   return (
     <div className="flex min-h-screen">
-      {/* Sidebar */}
       <div className="bg-white w-[250px] flex flex-col items-center gap-8 p-5">
         <h1 className="text-3xl text-black font-bold">Connect</h1>
         <div className="flex flex-col gap-3">
-          <button onClick={() => router.push('/dashboard')} className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center">
+          <button
+            onClick={() => router.push("/dashboard")}
+            className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center"
+          >
             <IconLayoutDashboard /> Dashboard
           </button>
-          <button onClick={() => router.push('/users')} className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center">
+          <button
+            onClick={() => router.push("/users")}
+            className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center"
+          >
             <IconUser /> User
           </button>
-          <button onClick={() => router.push('/edit')} className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center">
+          <button
+            onClick={() => router.push("/edit")}
+            className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center"
+          >
             <IconEdit /> Edit
           </button>
-          <button onClick={() => router.push('/roles')} className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center">
+          <button
+            onClick={() => router.push("/roles")}
+            className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center"
+          >
             <IconKey /> Hak Akses
           </button>
-          <button onClick={() => router.push('/news')} className="bg-black text-white w-[150px] p-1 rounded-lg flex gap-2 items-center">
+          <button
+            onClick={() => router.push("/news")}
+            className="bg-black text-white w-[150px] p-1 rounded-lg flex gap-2 items-center"
+          >
             <IconNews /> News
           </button>
-          <button onClick={() => router.push('/login')} className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center">
+          <button
+            onClick={() => router.push("/team")}
+            className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center"
+          >
+            <IconUsersGroup /> Tim
+          </button>
+          <button
+            onClick={() => router.push("/login")}
+            className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center"
+          >
             <IconLogout /> Logout
           </button>
         </div>
       </div>
 
-      {/* Content */}
       <div className="bg-white w-full p-5 relative">
         <h2 className="text-xl font-bold mb-4">Daftar Berita</h2>
         <Input
@@ -109,7 +132,11 @@ export default function NewsPage() {
                   <p className="text-sm text-gray-600">{item.content}</p>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={() => handleEdit(item.id, item.title, item.content)}>
+                  <button
+                    onClick={() =>
+                      handleEdit(item.id, item.title, item.content)
+                    }
+                  >
                     <IconEdit size={18} />
                   </button>
                   <button onClick={() => handleDelete(item.id)}>
@@ -122,7 +149,9 @@ export default function NewsPage() {
         </div>
 
         {filteredNews.length === 0 && (
-          <p className="text-gray-500 text-center mt-4">Tidak ada berita ditemukan.</p>
+          <p className="text-gray-500 text-center mt-4">
+            Tidak ada berita ditemukan.
+          </p>
         )}
 
         <button

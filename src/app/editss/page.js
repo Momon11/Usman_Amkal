@@ -9,6 +9,7 @@ import {
   IconKey,
   IconLogout,
   IconNews,
+  IconUsersGroup,
 } from "@tabler/icons-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -78,7 +79,6 @@ export default function EditPage() {
 
   return (
     <div className="flex min-h-screen">
-      {/* Sidebar */}
       <div className="bg-white w-[250px] flex flex-col items-center gap-8 p-5">
         <h1 className="text-3xl text-black font-bold">Connect</h1>
         <div className="flex flex-col gap-3">
@@ -114,8 +114,17 @@ export default function EditPage() {
           >
             <IconKey /> Hak Akses
           </button>
-                    <button onClick={() => router.push('/news')} className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center">
+          <button
+            onClick={() => router.push("/news")}
+            className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center"
+          >
             <IconNews /> News
+          </button>
+          <button
+            onClick={() => router.push("/team")}
+            className="text-black w-[150px] p-1 rounded-lg flex gap-2 items-center"
+          >
+            <IconUsersGroup /> Tim
           </button>
           <button
             onClick={() => router.push("/login")}
@@ -126,7 +135,6 @@ export default function EditPage() {
         </div>
       </div>
 
-      {/* Content */}
       <div className="bg-white w-full p-5">
         {!userId ? (
           <>
@@ -174,25 +182,25 @@ export default function EditPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
               />
-             <select
-  value={role || ''} // fallback ke string kosong
-  onChange={(e) => setRole(e.target.value)}
-  className="border rounded p-2"
->
-  <option value="">-- Pilih Role --</option>
-  <option value="Employee">Employee</option>
-  <option value="Admin">Admin</option>
-</select>
+              <select
+                value={role || ""} 
+                onChange={(e) => setRole(e.target.value)}
+                className="border rounded p-2"
+              >
+                <option value="">-- Pilih Role --</option>
+                <option value="Employee">Employee</option>
+                <option value="Admin">Admin</option>
+              </select>
 
-<select
-  value={status || ''}
-  onChange={(e) => setStatus(e.target.value)}
-  className="border rounded p-2"
->
-  <option value="">-- Pilih Status --</option>
-  <option value="Aktif">Aktif</option>
-  <option value="Nonaktif">Nonaktif</option>
-</select>
+              <select
+                value={status || ""}
+                onChange={(e) => setStatus(e.target.value)}
+                className="border rounded p-2"
+              >
+                <option value="">-- Pilih Status --</option>
+                <option value="Aktif">Aktif</option>
+                <option value="Nonaktif">Nonaktif</option>
+              </select>
 
               <div className="flex gap-2">
                 <Button onClick={handleUpdate}>Simpan</Button>
